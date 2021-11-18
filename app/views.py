@@ -18,12 +18,12 @@ class UserSignUpView(APIView):
     def post(self,request):
         serializer = UserSerializer(data = request.data)
         if serializer.is_valid():
-            # serializer.save()
+            serializer.save()
             return Response(
                 {'status':'success'},
                 status=status.HTTP_201_CREATED
             )
-        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors,status=status.HTTP_401_UNAUTHORIZED)
 
 
 class UserSignInView(APIView):
