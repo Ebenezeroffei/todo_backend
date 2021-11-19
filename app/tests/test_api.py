@@ -6,7 +6,7 @@ class UserAuthenticationTest(APITestCase):
     sign_up_url = reverse("app:signup")
 
 
-    def test_user_login(self):
+    def test_user_sign_up(self):
         data = {
             'username':'stark',
             'password': 'testing321'
