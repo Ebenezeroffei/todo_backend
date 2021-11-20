@@ -41,5 +41,5 @@ class UserSignInView(APIView):
                 'refresh': str(token),
                 'access': str(token.access_token)
             })
-        return Response({'status':'error'},status=status.HTTP_400_BAD_REQUEST)
+        return Response({'status':'error'},status=status.HTTP_401_UNAUTHORIZED)
 
