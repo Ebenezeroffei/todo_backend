@@ -20,26 +20,36 @@ class UserSignUpView(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(
-                {'status':'success'},
+                {'status':'OK'},
                 status=status.HTTP_201_CREATED
             )
-        return Response(serializer.errors,status=status.HTTP_401_UNAUTHORIZED)
+        return Response({
+                'message':serializer.errors,
+                'status': "ERROR"
+            },
+            status=status.HTTP_401_UNAUTHORIZED
+        )
 
 
 class UserSignInView(APIView):
 
     def post(self,request):
-        username = request.data['username']
-        password = request.data['password']
+        username = request.data.get('username')
+        password = request.data.get('password')
         user = authenticate(username = username,password = password)
         if user:
             token = RefreshToken.for_user(user)
             serializer = UserSerializer(user)
             return Response({
-                'status':'success',
+                'status':'OK',
                 'user': serializer.data,
                 'refresh': str(token),
                 'access': str(token.access_token)
             })
-        return Response({'status':'error'},status=status.HTTP_401_UNAUTHORIZED)
+        return Response({
+                'message':'Invalid username and/or password.',
+                'status': 'ERROR'
+            },
+            status=status.HTTP_401_UNAUTHORIZED
+        )
 

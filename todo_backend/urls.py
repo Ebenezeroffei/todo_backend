@@ -18,6 +18,6 @@ from django.urls import path,include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('v1/',include('app.urls')),
+    path('',include('app.urls')),
     path('v1/password-reset/',include('django_rest_passwordreset.urls',namespace='password_reset')),
 ]
